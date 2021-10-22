@@ -69,7 +69,7 @@ const Card = ({ post }) => {
       </div>
       <div className="card">
         <div className="card-pic">
-          <img src={"." + post.picture} alt="thread" />
+          <img src={post.picture} alt="thread" />
         </div>
         <div className="imessage">
           <p className="from-me">{post.description}</p>

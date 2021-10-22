@@ -37,7 +37,9 @@ const Game = () => {
 
   useEffect(() => {
     if (reload === true) {
-      axios.get(`api/post/random`).then((res) => setData(res.data[0]));
+      axios.get(`api/post/random`).then((res) => {
+        setData(res.data[0]);
+      });
     }
     setReload(false);
   }, [reload]);
