@@ -6,27 +6,27 @@ import { useDispatch, useSelector } from "react-redux";
 
 const LikeButton = ({ post }) => {
   const [liked, setLiked] = useState(false);
-  const uid = useSelector((state) => state.authReducer);
+  const uid = useSelector((state) => state.authReducer.user);
   const dispatch = useDispatch();
 
   const like = () => {
-    dispatch(likePost(post._id, uid.user.id));
+    dispatch(likePost(post._id, uid.id));
     setLiked(true);
   };
 
   const unlike = () => {
-    dispatch(unlikePost(post._id, uid.user.id));
+    dispatch(unlikePost(post._id, uid.id));
     setLiked(false);
   };
 
   useEffect(() => {
-    if (post.likers.includes(uid.user.id)) setLiked(true);
+    if (post.likers.includes(uid.id)) setLiked(true);
     else setLiked(false);
   }, [uid, post.likers]);
 
   return (
     <div className="like-container">
-      {uid.user.id ? null : (
+      {uid.id ? null : (
         <Popup
           trigger={<img src="../img/heart.svg" alt="like" />}
           position={["bottom center", "bottom right", "bottom left"]}
@@ -35,10 +35,10 @@ const LikeButton = ({ post }) => {
           <div className="popup">Connectez-vous pour aimer un post !</div>
         </Popup>
       )}
-      {uid.user.id && liked === false && (
+      {uid.id && liked === false && (
         <img src="../img/heart.svg" onClick={like} alt="like" />
       )}
-      {uid.user.id && liked && (
+      {uid.id && liked && (
         <img src="../img/heart-filled.svg" onClick={unlike} alt="unlike" />
       )}
 

@@ -28,9 +28,14 @@
       format("woff");
 }
 
+@font-face {
+  font-family: "Franklin";
+  src: url("./components/font/librefranklin-extrabold.woff") format("woff");
+}
 .error {
   color: rgb(224, 100, 100);
   font-size: 12px;
+  font-family: Calibri Light;
 }
 .success {
   color: rgb(87, 184, 87);
@@ -157,8 +162,8 @@
     justify-content: space-evenly;
     gap: 10px;
     .m1 {
-      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-      font-size: 45px;
+      font-family: "Franklin";
+      font-size: 40px;
     }
     .m2 {
       font-family: Calibri;
@@ -212,7 +217,7 @@
     .message {
       .m1 {
         p {
-          font-size: 45px;
+          font-size: 38px;
         }
       }
       .m2 {
@@ -340,7 +345,9 @@
     }
   }
 }
+
 //profil
+
 .user {
   display: flex;
   flex-direction: column;
@@ -359,9 +366,8 @@
 
       .m1 {
         p {
-          font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
-            sans-serif;
-          font-size: 45px;
+          font-family: "Franklin";
+          font-size: 40px;
           margin: 20px 10%;
         }
       }
@@ -389,7 +395,7 @@
         margin-bottom: 50px;
         .m1 {
           p {
-            font-size: 40px;
+            font-size: 38px;
           }
         }
       }
@@ -785,7 +791,7 @@
 
     .m1 {
       font-family: "Franklin";
-      font-size: 30px;
+      font-size: 35px;
       text-align: center;
     }
     .m2 {

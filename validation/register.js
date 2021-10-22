@@ -13,7 +13,7 @@ module.exports.validateRegisterInput = (err) => {
   // Email checks
   if (isEmpty(err.email)) {
     errors.email = "Email field is required";
-  } else if (emailIsValid(err.email)) {
+  } else if (!emailIsValid(err.email)) {
     errors.email = "Email is invalid";
   }
 

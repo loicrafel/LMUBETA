@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import Logout from "./Log/Logout";
 
 const Navbar = () => {
-  const uid = useSelector((state) => state.authReducer);
+  const uid = useSelector((state) => state.authReducer.user);
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -31,7 +31,7 @@ const Navbar = () => {
               <img src="../img/user-in.svg" alt="user" />
             </NavLink>
 
-            {uid.user.id ? (
+            {uid.id ? (
               <Logout />
             ) : (
               <NavLink exact to="/user">
@@ -76,7 +76,7 @@ const Navbar = () => {
             </div>
 
             <div>
-              {uid.user.id ? (
+              {uid.id ? (
                 <Logout />
               ) : (
                 <NavLink exact to="/user">

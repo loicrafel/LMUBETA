@@ -10,7 +10,12 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const registerUser = (userData) => (dispatch) => {
   axios
     .post(`api/user/register`, userData)
-    .then()
+    .then(
+      dispatch({
+        type: GET_ERRORS,
+        payload: [],
+      })
+    )
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
@@ -35,6 +40,10 @@ export const loginUser = (userData) => (dispatch) => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
+      dispatch({
+        type: GET_ERRORS,
+        payload: [],
+      });
     })
     .catch((err) =>
       dispatch({

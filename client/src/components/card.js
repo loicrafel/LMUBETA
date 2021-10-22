@@ -6,7 +6,7 @@ import LikeButton from "./LikeButton";
 import { dateParser, isEmpty } from "./utils";
 
 const Card = ({ post }) => {
-  const uid = useSelector((state) => state.authReducer);
+  const uid = useSelector((state) => state.authReducer.user);
   const usersData = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();
   const deleteQuote = () => dispatch(deletePost(post._id));
@@ -22,7 +22,7 @@ const Card = ({ post }) => {
   return (
     <div className="card-container">
       <div className="edit">
-        {uid.user.id === post.posterId && (
+        {uid.id === post.posterId && (
           <div>
             <img
               onClick={() => {
@@ -35,12 +35,12 @@ const Card = ({ post }) => {
             />
           </div>
         )}
-        {uid.user.id === post.posterId && publied === false && (
+        {uid.id === post.posterId && publied === false && (
           <div>
             <img src="../img/edit.svg" onClick={publier} alt="edit" />
           </div>
         )}
-        {uid.user.id === post.posterId && publied && (
+        {uid.id === post.posterId && publied && (
           <div>
             <img src="../img/unedit.svg" onClick={publier} alt="unedit" />
           </div>
@@ -51,7 +51,7 @@ const Card = ({ post }) => {
         </div>
         <div className="date">
           {dateParser(post.createdAt)} <br />
-          {uid.user.id === post.posterId ? (
+          {uid.id === post.posterId ? (
             <p>Par vous</p>
           ) : (
             <p>

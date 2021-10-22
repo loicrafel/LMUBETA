@@ -9,11 +9,11 @@ import { isEmpty } from "../components/utils";
 import { getPost } from "../actions/post.actions";
 
 const Profil = () => {
-  const uid = useSelector((state) => state.authReducer);
+  const uid = useSelector((state) => state.authReducer.user);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPost(uid.user.id));
+    dispatch(getPost(uid.id));
   }, [uid, dispatch]);
 
   const privateposts = useSelector((state) => state.postReducer);
@@ -21,7 +21,7 @@ const Profil = () => {
     <div>
       <Navbar />
       <div>
-        {uid.user.id ? (
+        {uid.id ? (
           <div className="user">
             <div className="profil">
               <div className="post">
@@ -32,9 +32,8 @@ const Profil = () => {
                 <div>
                   <div className="m1">
                     <p>
-                      Bienvenue {!isEmpty(uid) && uid.user.pseudo}. Tu peux
-                      soumettre une conversation ou consulter les réponses des
-                      autres joueurs.
+                      Bienvenue {uid?.pseudo}. Tu peux soumettre une
+                      conversation ou consulter les réponses des autres joueurs.
                     </p>
                   </div>
                   <br />

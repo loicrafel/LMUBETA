@@ -13,6 +13,7 @@ export const VOTE = "VOTE";
 export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 export const PUBLISH = "PUBLISH";
+export const GET_ERRORS = "GET_ERRORS";
 
 export const getPost = (uid) => {
   return (dispatch) => {
@@ -52,8 +53,21 @@ export const getRandomPost = () => {
 };
 
 export const addPost = (data) => {
-  return () => {
-    return axios.post(`api/post/`, data).then();
+  return (dispatch) => {
+    return axios
+      .post(`api/post/`, data)
+      .then(
+        dispatch({
+          type: GET_ERRORS,
+          payload: [],
+        })
+      )
+      .catch((err) =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        })
+      );
   };
 };
 

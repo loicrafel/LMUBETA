@@ -5,7 +5,8 @@ import "reactjs-popup/dist/index.css";
 import { addPost, getPost } from "../actions/post.actions";
 
 const NewProfile = () => {
-  const uid = useSelector((state) => state.authReducer);
+  const uid = useSelector((state) => state.authReducer.user);
+  const error = useSelector((state) => state.errorReducer);
   const [message, setMessage] = useState("");
   const [postPicture, setPostPicture] = useState(null);
   const [file, setFile] = useState();
@@ -14,16 +15,13 @@ const NewProfile = () => {
   const handlePost = async () => {
     if (message || postPicture) {
       const data = new FormData();
-      data.append("posterId", uid.user.id);
+      data.append("posterId", uid.id);
       data.append("description", message);
       if (file) data.append("file", file);
 
       await dispatch(addPost(data));
-      dispatch(getPost(uid.user.id));
+      dispatch(getPost(uid.id));
       cancelPost();
-      alert(
-        "Nous avons bien reçu ta conversation, la communauté va rapidement t'aider!"
-      );
     } else {
       alert("Veuillez entrer un message");
     }
@@ -56,6 +54,7 @@ const NewProfile = () => {
           </div>
         ) : (
           <div className="icon">
+            <div className="error">{error.format || error.maxSize}</div>
             <div>
               <img src="./img/picture.svg" alt="upload-img" />
               <input
@@ -66,6 +65,7 @@ const NewProfile = () => {
                 onChange={(e) => handlePicture(e)}
               />
             </div>
+
             <p>Upload ta conversation!</p>
           </div>
         )}

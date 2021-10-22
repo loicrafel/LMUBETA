@@ -4,7 +4,6 @@ const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
-const { uploadErrors } = require("../validation/upload.js");
 
 module.exports.readPost = (req, res) => {
   PostModel.find((err, docs) => {
@@ -37,19 +36,15 @@ module.exports.randomPost = async (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-  try {
-    if (
-      req.file.detectedMimeType != "image/jpg" &&
-      req.file.detectedMimeType != "image/png" &&
-      req.file.detectedMimeType != "image/jpeg"
-    )
-      throw Error("invalid file");
+  const ext = req.file.clientReportedFileExtension;
+  console.log("ext=", ext);
+  if (ext !== ".jpg" && ext !== ".png" && ext !== ".jpeg")
+    return res.status(400).json({
+      format: "Seuls les formats jpg, png et et jpeg sont acceptés",
+    });
 
-    if (req.file.size > 500000) throw Error("max size");
-  } catch (err) {
-    const errors = uploadErrors(err);
-    return res.status(202).json({ errors });
-  }
+  if (req.file.size > 500000)
+    return { maxSize: "La taille maximale est atteinte" };
 
   let fileName = Date.now() + ".jpg";
   await pipeline(
