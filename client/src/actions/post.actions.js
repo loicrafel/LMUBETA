@@ -17,7 +17,7 @@ export const PUBLISH = "PUBLISH";
 export const getPost = (uid) => {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_API_URL}api/post/getall/${uid}`)
+      .get(`api/post/getall/${uid}`)
       .then((res) => {
         dispatch({ type: GET_POST, payload: res.data });
       })
@@ -28,7 +28,7 @@ export const getPost = (uid) => {
 export const getPosts = (num) => {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_API_URL}api/post/`)
+      .get(`api/post/`)
       .then((res) => {
         const array = res.data
           .filter((post) => post.public === true)
@@ -43,7 +43,7 @@ export const getPosts = (num) => {
 export const getRandomPost = () => {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_API_URL}api/post/random`)
+      .get(`api/post/random`)
       .then((res) => {
         dispatch({ type: GET_RANDOM_POST, payload: res.data });
       })
@@ -53,7 +53,7 @@ export const getRandomPost = () => {
 
 export const addPost = (data) => {
   return () => {
-    return axios.post(`${process.env.REACT_APP_API_URL}api/post/`, data).then();
+    return axios.post(`api/post/`, data).then();
   };
 };
 
@@ -61,7 +61,7 @@ export const deletePost = (postId) => {
   return (dispatch) => {
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
+      url: `api/post/${postId}`,
     })
       .then((res) => {
         dispatch({ type: DELETE_POST, payload: { postId } });
@@ -74,7 +74,7 @@ export const Vote = (postId, respId) => {
   return (dispatch) => {
     return axios({
       method: "put",
-      url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
+      url: `api/post/${postId}`,
       data: { respId },
     })
       .then((res) => {
@@ -88,7 +88,7 @@ export const AddResponse = (postId, text) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/add/${postId}`,
+      url: `api/post/add/${postId}`,
       data: { text },
     })
       .then((res) => {
@@ -102,7 +102,7 @@ export const likePost = (postId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/like-post/` + postId,
+      url: `api/post/like-post/` + postId,
       data: { id: userId },
     })
       .then((res) => {
@@ -116,7 +116,7 @@ export const unlikePost = (postId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + postId,
+      url: `api/post/unlike-post/` + postId,
       data: { id: userId },
     })
       .then((res) => {
@@ -130,7 +130,7 @@ export const publish = (postId) => {
   return (dispatch) => {
     return axios({
       method: "put",
-      url: `${process.env.REACT_APP_API_URL}api/post/publish/` + postId,
+      url: `api/post/publish/` + postId,
     })
       .then((res) => {
         dispatch({ type: PUBLISH, payload: { postId } });

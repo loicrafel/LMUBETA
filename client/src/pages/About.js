@@ -15,7 +15,7 @@ function About() {
     if (emailIsValid(email.value) === true) {
       axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}api/mail/contact`,
+        url: `api/mail/contact`,
         withCredentials: true,
         data: {
           sujet: sujet.value,

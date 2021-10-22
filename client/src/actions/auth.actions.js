@@ -9,7 +9,7 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 // Register User
 export const registerUser = (userData) => (dispatch) => {
   axios
-    .post(`${process.env.REACT_APP_API_URL}api/user/register`, userData)
+    .post(`api/user/register`, userData)
     .then()
     .catch((err) =>
       dispatch({
@@ -22,7 +22,7 @@ export const registerUser = (userData) => (dispatch) => {
 // Login - get user token
 export const loginUser = (userData) => (dispatch) => {
   axios
-    .post(`${process.env.REACT_APP_API_URL}api/user/login`, userData)
+    .post(`api/user/login`, userData)
     .then((res) => {
       // Save to localStorage
 
