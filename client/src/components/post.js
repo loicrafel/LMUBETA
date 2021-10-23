@@ -6,37 +6,56 @@ import { addPost, getPost } from "../actions/post.actions";
 
 const NewProfile = () => {
   const uid = useSelector((state) => state.authReducer.user);
-  const error = useSelector((state) => state.errorReducer);
   const [message, setMessage] = useState("");
   const [postPicture, setPostPicture] = useState(null);
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
 
   const handlePost = async () => {
     if (message || postPicture) {
-      const data = new FormData();
-      data.append("posterId", uid.id);
-      data.append("description", message);
-      if (file) data.append("file", file);
-
-      await dispatch(addPost(data));
-      dispatch(getPost(uid.id));
-      cancelPost();
+      if (file.size > 500000) {
+        cancelPost();
+        setError("La taille maximale est atteinte");
+      } else if (
+        file.type !== "image/png" &&
+        file.type !== "image/jpg" &&
+        file.type !== "image/jpeg"
+      ) {
+        cancelPost();
+        setError("Seuls les formats jpg, png et et jpeg sont acceptés");
+      } else {
+        const data = new FormData();
+        data.append("posterId", uid.id);
+        data.append("description", message);
+        if (postPicture) data.append("file", postPicture);
+        dispatch(addPost(data));
+        dispatch(getPost(uid.id));
+        cancelPost();
+        setError("");
+      }
     } else {
-      alert("Veuillez entrer un message");
+      alert("Le téléversement n'a pas fonctionné");
     }
   };
 
-  const handlePicture = async (e) => {
-    setPostPicture(URL.createObjectURL(e.target.files[0]));
+  const handlePicture = (e) => {
     setFile(e.target.files[0]);
-    console.log(e.target.files[0]);
+    const fil = e.target.files[0];
+    previewFile(fil);
+  };
+
+  const previewFile = (fil) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fil);
+    reader.onloadend = () => {
+      setPostPicture(reader.result);
+    };
   };
 
   const cancelPost = () => {
     setMessage("");
     setPostPicture("");
-    setFile("");
   };
 
   return (
@@ -54,7 +73,7 @@ const NewProfile = () => {
           </div>
         ) : (
           <div className="icon">
-            <div className="error">{error.format || error.maxSize}</div>
+            <div className="error">{error}</div>
             <div>
               <img src="./img/picture.svg" alt="upload-img" />
               <input

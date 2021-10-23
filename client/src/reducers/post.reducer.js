@@ -5,6 +5,7 @@ import {
   VOTE,
   LIKE_POST,
   UNLIKE_POST,
+  CREATE_POST,
 } from "../actions/post.actions";
 
 const initialState = {};
@@ -15,6 +16,8 @@ export default function postReducer(state = initialState, action) {
       return action.payload;
     case GET_PUBLIC_POSTS:
       return action.payload;
+    case CREATE_POST:
+      return [...state, action.payload];
     case LIKE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId) {

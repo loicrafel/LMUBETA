@@ -1,9 +1,6 @@
 const PostModel = require("../models/post.model");
-const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
-const fs = require("fs");
-const { promisify } = require("util");
-const pipeline = promisify(require("stream").pipeline);
+const { cloudinary } = require("../config/cloudinary.js");
 
 module.exports.readPost = (req, res) => {
   PostModel.find((err, docs) => {
@@ -36,34 +33,27 @@ module.exports.randomPost = async (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-  const ext = req.file.clientReportedFileExtension;
-  console.log("ext=", ext);
-  if (ext !== ".jpg" && ext !== ".png" && ext !== ".jpeg")
-    return res.status(400).json({
-      format: "Seuls les formats jpg, png et et jpeg sont acceptés",
-    });
-
-  if (req.file.size > 500000)
-    return { maxSize: "La taille maximale est atteinte" };
-
-  let fileName = Date.now() + ".jpg";
-  await pipeline(
-    req.file.stream,
-    fs.createWriteStream(`${__dirname}/../client/public/profil/${fileName}`)
-  );
-
-  const newPost = new PostModel({
-    posterId: req.body.posterId,
-    description: req.body.description,
-    public: false,
-    picture: req.file !== null ? "./profil/" + fileName : "",
-    likers: [],
-  });
   try {
-    const Post = await newPost.save();
-    return res.status(201).json(Post);
+    const fileStr = req.body.file;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "lmu_uploads",
+    });
+    const newPost = new PostModel({
+      posterId: req.body.posterId,
+      description: req.body.description,
+      public: false,
+      picture: uploadResponse.secure_url,
+      likers: [],
+    });
+    try {
+      const Post = await newPost.save();
+      return res.status(201).json(Post);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
   } catch (err) {
-    return res.status(400).send(err);
+    console.error(err);
+    res.status(500).json({ err: "Something went wrong" });
   }
 };
 

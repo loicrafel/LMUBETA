@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const GET_PUBLIC_POSTS = "GET_PUBLIC_POSTS";
+export const CREATE_POST = "CREATE_POST";
 export const GET_POST = "GET_POST";
 export const GET_RANDOM_POST = "GET_RANDOM_POST";
 export const ADD_POST = "ADD_POST";
@@ -54,20 +55,12 @@ export const getRandomPost = () => {
 
 export const addPost = (data) => {
   return (dispatch) => {
-    return axios
-      .post(`api/post/`, data)
-      .then(
-        dispatch({
-          type: GET_ERRORS,
-          payload: [],
-        })
-      )
-      .catch((err) =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data,
-        })
-      );
+    return axios.post(`api/post/`, data).then((res) => {
+      dispatch({
+        type: CREATE_POST,
+        payload: res.data,
+      });
+    });
   };
 };
 
