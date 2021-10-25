@@ -1,6 +1,6 @@
 import { GET_ERRORS } from "../actions/auth.actions";
 
-const initialState = {};
+const initialState = [];
 
 export default function errorReducer(state = initialState, action) {
   switch (action.type) {

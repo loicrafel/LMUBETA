@@ -9,6 +9,7 @@ const otherRoutes = require("./routes/other.routes");
 
 const app = express();
 
+require("dotenv").config({ path: "./config/.env" });
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
@@ -18,7 +19,7 @@ app.use(
 app.use(bodyParser.json());
 
 // DB Config
-const db = require("./config/key.js").mongoURI;
+const db = process.env.MONGO_URI;
 
 // Connect to MongoDB
 mongoose

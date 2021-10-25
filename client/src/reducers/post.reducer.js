@@ -8,7 +8,7 @@ import {
   CREATE_POST,
 } from "../actions/post.actions";
 
-const initialState = {};
+const initialState = [];
 
 export default function postReducer(state = initialState, action) {
   switch (action.type) {

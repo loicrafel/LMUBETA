@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const GET_USER = "GET_USER";
-export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
+export const DELETE_USER = "DELETE_USER";
 
 export const getUser = (uid) => {
   return (dispatch) => {
@@ -14,14 +14,14 @@ export const getUser = (uid) => {
   };
 };
 
-export const uploadPicture = (data, id) => {
+export const deleteUser = (uid) => {
   return (dispatch) => {
-    return axios
-      .post(`api/user/upload`, data)
+    return axios({
+      method: "delete",
+      url: `api/user/${uid}`,
+    })
       .then((res) => {
-        return axios.get(`api/user/${id}`).then((res) => {
-          dispatch({ type: UPLOAD_PICTURE, payload: res.data.picture });
-        });
+        dispatch({ type: DELETE_USER, payload: { uid } });
       })
       .catch((err) => console.log(err));
   };

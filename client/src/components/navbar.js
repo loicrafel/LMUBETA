@@ -14,7 +14,12 @@ const Navbar = () => {
       <div className="nav-container">
         <div className="logo">
           <NavLink exact to="/">
-            <img src="../img/logolmu.svg" alt="logo_LightMeUp" />
+            <img src="../img/logo1.svg" alt="logo_LightMeUp" />
+            <img
+              className="heartbeat"
+              src="../img/logo2.svg"
+              alt="logo_LightMeUp"
+            />
           </NavLink>
         </div>
 

@@ -58,10 +58,11 @@
   box-shadow: 2px 2px 2px rgba(51, 51, 51, 0.16);
   .logo {
     padding-left: 30px;
+    margin-top: 5px;
 
     img {
       height: 50px;
-      margin: 3px;
+      margin: 3px 0px;
     }
     @media screen and(max-width: 800px) {
       padding-right: 10px;
@@ -122,6 +123,19 @@
     }
   }
 }
+
+.heartbeat {
+  animation: beat 1.2s infinite alternate;
+  transform-origin: center;
+}
+
+/* Heart beat animation */
+@keyframes beat {
+  to {
+    transform: scale(1.2);
+  }
+}
+
 .responsive {
   display: flex;
   position: fixed;
@@ -401,6 +415,53 @@
       }
       .m3 {
         margin-top: 100px;
+      }
+    }
+  }
+}
+
+.settings {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  img {
+    height: 30px;
+  }
+}
+.moresettings {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 15px;
+
+  .close {
+    height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+  .listsettings {
+    margin: 10px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .insidelistsettings {
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      align-items: center;
+      p {
+        font-size: 14px;
+        font-family: Calibri;
+        color: grey;
+      }
+      img {
+        height: 20px;
       }
     }
   }

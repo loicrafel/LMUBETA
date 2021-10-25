@@ -1,7 +1,6 @@
 const UserModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const keys = require("../config/key.js");
 
 // Load input validation
 const { validateRegisterInput } = require("../validation/register");
@@ -49,7 +48,6 @@ module.exports.login = (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check validation
-  console.log("valid=", isValid);
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -77,7 +75,7 @@ module.exports.login = (req, res) => {
         // Sign token
         jwt.sign(
           payload,
-          keys.secretOrKey,
+          process.env.SECRET,
           {
             expiresIn: 31556926, // 1 year in seconds
           },

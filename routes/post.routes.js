@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const postController = require("../controllers/post.controller");
-const uploadController = require("../controllers/upload.controller");
 const multer = require("multer");
 const upload = multer();
 
@@ -16,8 +15,5 @@ router.delete("/:id", postController.deletePost);
 
 router.patch("/like-post/:id", postController.likePost);
 router.patch("/unlike-post/:id", postController.unlikePost);
-
-// upload
-router.post("/upload", upload.single("file"), uploadController.uploadProfil);
 
 module.exports = router;
