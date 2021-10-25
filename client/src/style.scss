@@ -59,13 +59,15 @@
   .logo {
     padding-left: 30px;
     margin-top: 5px;
+    display: flex;
+    flex-wrap: nowrap;
 
     img {
       height: 50px;
       margin: 3px 0px;
     }
     @media screen and(max-width: 800px) {
-      padding-right: 10px;
+      padding-left: 15px;
       padding-top: 5px;
       img {
         height: 40px;
@@ -230,6 +232,7 @@
     }
     .message {
       .m1 {
+        margin: 10px;
         p {
           font-size: 38px;
         }
@@ -456,6 +459,12 @@
       gap: 5px;
       align-items: center;
       p {
+        font-size: 14px;
+        font-family: Calibri;
+        color: grey;
+      }
+      li {
+        list-style-type: none;
         font-size: 14px;
         font-family: Calibri;
         color: grey;

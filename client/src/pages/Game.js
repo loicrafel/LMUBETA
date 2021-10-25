@@ -1,14 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/navbar";
 
 import { dateParser, isEmpty } from "../components/utils";
 import { AddResponse, Vote } from "../actions/post.actions";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import { contribute } from "../actions/user.actions";
 
 const Game = () => {
+  const uid = useSelector((state) => state.authReducer.user);
+
   const dispatch = useDispatch();
 
   const [data, setData] = useState([]);
@@ -19,6 +22,7 @@ const Game = () => {
   const handleVote = async () => {
     if (vote) {
       dispatch(Vote(data._id, vote));
+      dispatch(contribute(uid.id));
       setReload(true);
     } else {
       alert("Veuillez selectionner une réponse");
@@ -27,6 +31,7 @@ const Game = () => {
 
   const handlePost = async () => {
     dispatch(AddResponse(data._id, message));
+    dispatch(contribute(uid.id));
     cancelPost();
     setReload(true);
   };

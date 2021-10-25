@@ -12,8 +12,8 @@ const Navbar = () => {
   return (
     <div>
       <div className="nav-container">
-        <div className="logo">
-          <NavLink exact to="/">
+        <div>
+          <NavLink exact to="/" className="logo">
             <img src="../img/logo1.svg" alt="logo_LightMeUp" />
             <img
               className="heartbeat"

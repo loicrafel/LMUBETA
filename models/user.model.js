@@ -26,6 +26,9 @@ const UserSchema = new mongoose.Schema(
     likes: {
       type: [String],
     },
+    contributions: {
+      type: Number,
+    },
   },
   {
     timestamps: true,

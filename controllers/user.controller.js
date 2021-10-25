@@ -1,5 +1,4 @@
 const UserModel = require("../models/user.model");
-const PostModel = require("../models/post.model");
 
 const ObjectID = require("mongoose").Types.ObjectId;
 
@@ -34,4 +33,23 @@ module.exports.deleteUser = (req, res) => {
     if (!err) res.send(docs);
     else console.log("Delete error : " + err);
   });
+};
+
+module.exports.contribute = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    return UserModel.findById(req.params.id, (err, docs) => {
+      docs.contributions = docs.contributions + 1;
+
+      return docs.save((err) => {
+        if (!err) return res.status(200).send(docs);
+        console.log("votre publication a bien été enregistrée");
+        return res.status(500).send(err);
+      });
+    });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };

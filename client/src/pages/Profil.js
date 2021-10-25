@@ -13,8 +13,9 @@ import { deleteUser } from "../actions/user.actions";
 
 const Profil = () => {
   const uid = useSelector((state) => state.authReducer.user);
+  const privateposts = useSelector((state) => state.postReducer);
+  const users = useSelector((state) => state.usersReducer);
   const [openModal, setOpenModal] = useState(false);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPost(uid.id));
@@ -37,7 +38,6 @@ const Profil = () => {
     }
   };
 
-  const privateposts = useSelector((state) => state.postReducer);
   return (
     <div>
       <Navbar />
@@ -53,6 +53,26 @@ const Profil = () => {
                   onClick={() => setOpenModal(!openModal)}
                 />
                 <div className="listsettings">
+                  <div className="insidelistsettings">
+                    <img src="../img/stat.svg" alt="statistiques" />
+                    <p>Statistiques de {uid.pseudo}</p>
+                  </div>
+                  <div className="insidelistsettings">
+                    <ul>
+                      <li>
+                        <b>{privateposts.length}</b> posts
+                      </li>
+                      <li>
+                        <b>
+                          {users.map((user) => {
+                            if (user._id === uid.id) return user.contributions;
+                            else return null;
+                          })}
+                        </b>{" "}
+                        contributions
+                      </li>
+                    </ul>
+                  </div>
                   <NavLink className="insidelistsettings" exact to="about">
                     <img src="../img/help.svg" alt="parametres" />
                     <p>Aide et assistance</p>
