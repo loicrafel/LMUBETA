@@ -22,7 +22,8 @@ const Game = () => {
   const handleVote = async () => {
     if (vote) {
       dispatch(Vote(data._id, vote));
-      dispatch(contribute(uid.id));
+      // nombre de contributions de l'utilisateur s'il est connecté
+      if (uid.id) dispatch(contribute(uid.id));
       setReload(true);
     } else {
       alert("Veuillez selectionner une réponse");
@@ -31,7 +32,8 @@ const Game = () => {
 
   const handlePost = async () => {
     dispatch(AddResponse(data._id, message));
-    dispatch(contribute(uid.id));
+    // nombre de contributions de l'utilisateur s'il est connecté
+    if (uid.id) dispatch(contribute(uid.id));
     cancelPost();
     setReload(true);
   };
