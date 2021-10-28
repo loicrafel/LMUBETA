@@ -4,6 +4,8 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { addPost, getPost } from "../actions/post.actions";
 
+import TextareaAutosize from "react-textarea-autosize";
+
 const NewProfile = () => {
   const uid = useSelector((state) => state.authReducer.user);
   const [message, setMessage] = useState("");
@@ -89,21 +91,20 @@ const NewProfile = () => {
           </div>
         )}
         <div className="footer">
-          <textarea
-            name="message"
-            id="message"
-            placeholder="Exlique ta situation!"
+          <TextareaAutosize
+            maxRows={5}
             onChange={(e) => setMessage(e.target.value)}
             value={message}
-          ></textarea>
+            placeholder="Et explique ta situation en quelques mots..."
+          />
           {message && postPicture ? (
             <button className="send" onClick={handlePost}>
-              <img src="./img/send.svg" alt="envoyer" height="25px" />
+              <img src="./img/send.svg" alt="envoyer" height="30px" />
             </button>
           ) : (
             <button className="send">
               <Popup
-                trigger={<img src="./img/send.svg" alt="send" height="25px" />}
+                trigger={<img src="./img/send.svg" alt="send" height="30px" />}
                 position={["bottom center", "bottom right", "bottom left"]}
                 closeOnDocumentClick
               >

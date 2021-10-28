@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/navbar";
+import TextareaAutosize from "react-textarea-autosize";
 
 import { dateParser, isEmpty } from "../components/utils";
 import { AddResponse, Vote } from "../actions/post.actions";
@@ -73,22 +74,21 @@ const Game = () => {
               </div>
 
               <div className="footer">
-                <textarea
-                  name="message"
-                  id="message"
-                  placeholder="Propose ta réponse!"
+                <TextareaAutosize
+                  maxRows={5}
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
-                ></textarea>
+                  placeholder="Si aucune réponse ne te convient, propose ta réponse!"
+                />
                 {message ? (
                   <button className="send" onClick={handlePost}>
-                    <img src="./img/send.svg" alt="envoyer" height="25px" />
+                    <img src="./img/send.svg" alt="envoyer" height="30px" />
                   </button>
                 ) : (
                   <button className="send">
                     <Popup
                       trigger={
-                        <img src="./img/send.svg" alt="send" height="25px" />
+                        <img src="./img/send.svg" alt="send" height="30px" />
                       }
                       position={[
                         "bottom center",
@@ -117,7 +117,7 @@ const Game = () => {
           </div>
           <div>
             <div className="indic">
-              Indications de l'auteur : {!isEmpty(data) && data.description}
+              Ma situation : {!isEmpty(data) && data.description}
             </div>
             <p className="date">
               Publié le {!isEmpty(data) && dateParser(data.createdAt)}
@@ -139,7 +139,7 @@ const Game = () => {
               ))}
           </form>
           <div className="vote-button">
-            <button onClick={handleVote}> Vote </button>
+            <button onClick={handleVote}> VOTE</button>
           </div>
         </div>
         <div className="suivant">

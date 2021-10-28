@@ -76,11 +76,11 @@ const Card = ({ post }) => {
           <br />
           {post.responses.length !== 0 ? (
             <p className="from-them">
-              Vous avez reçu {post.responses.length} réponse
-              {post.responses.length === 1 ? null : "s"}
+              {post.responses.length} proposition
+              {post.responses.length === 1 ? null : "s"} !
             </p>
           ) : (
-            <p className="from-them">Aucune réponse pour l'instant</p>
+            <p className="from-them">Aucune prosition pour l'instant</p>
           )}
           <br />
           {post.responses.length !== 0 ? (

@@ -20,6 +20,23 @@
   }
 }
 
+input,
+textarea {
+  font-family: "CalibriLight";
+}
+::-webkit-input-placeholder {
+  font-family: "CalibriLight";
+}
+:-moz-placeholder {
+  font-family: "CalibriLight";
+}
+::-moz-placeholder {
+  font-family: "CalibriLight";
+}
+:-ms-input-placeholder {
+  font-family: "CalibriLight";
+}
+
 @font-face {
   font-family: "SanFrancisco";
   src: url("https://cdn.rawgit.com/AllThingsSmitty/fonts/25983b71/SanFrancisco/sanfranciscodisplay-regular-webfont.woff2")
@@ -32,14 +49,22 @@
   font-family: "Franklin";
   src: url("./components/font/librefranklin-extrabold.woff") format("woff");
 }
+@font-face {
+  font-family: "Calibri";
+  src: url("./components/font/Calibri.woff") format("woff");
+}
+@font-face {
+  font-family: "CalibriLight";
+  src: url("./components/font/Calibri-Light.woff") format("woff");
+}
 .error {
   color: rgb(224, 100, 100);
   font-size: 12px;
-  font-family: Calibri Light;
+  font-family: "CalibriLight";
 }
 .success {
   color: rgb(87, 184, 87);
-  font-family: Calibri Light;
+  font-family: "CalibriLight";
   font-size: 12px;
   margin-top: 10px;
 }
@@ -182,7 +207,7 @@
       font-size: 42px;
     }
     .m2 {
-      font-family: Calibri;
+      font-family: "Calibri";
       text-align: justify;
       color: grey;
       font-size: 18px;
@@ -190,12 +215,12 @@
     }
     .m3 {
       height: auto;
-      font-family: Calibri;
+      font-family: "Calibri";
       display: flex;
       justify-content: center;
 
       p {
-        font-family: Calibri;
+        font-family: "Calibri";
         color: grey;
         font-size: 16px;
       }
@@ -214,7 +239,7 @@
       .souligne {
         margin-top: 10px;
         text-decoration: underline;
-        font-family: Calibri;
+        font-family: "Calibri";
         color: grey;
         font-size: 12px;
       }
@@ -252,12 +277,12 @@
 // form
 
 .form {
-  font-family: Calibri Light;
+  font-family: "CalibriLight";
   label {
     font-size: 12px;
   }
   input {
-    font-family: Calibri Light;
+    font-family: "CalibriLight";
     padding: 10px 20px;
     margin: 0;
     font-size: 14px;
@@ -277,7 +302,7 @@
 
 .log-container {
   margin-top: 100px;
-  font-family: Calibri Light;
+  font-family: "CalibriLight";
   display: flex;
   align-items: flex-start;
   .image {
@@ -389,7 +414,7 @@
         }
       }
       .m2 {
-        font-family: Calibri;
+        font-family: "Calibri";
         text-align: justify;
         color: grey;
         font-size: 18px;
@@ -460,13 +485,13 @@
       align-items: center;
       p {
         font-size: 14px;
-        font-family: Calibri;
+        font-family: "Calibri";
         color: grey;
       }
       li {
         list-style-type: none;
         font-size: 14px;
-        font-family: Calibri;
+        font-family: "Calibri";
         color: grey;
       }
       img {
@@ -495,7 +520,7 @@
   border: solid black 1px;
   border-radius: 35px;
   margin: 10px auto;
-  height: 400px;
+  height: 460px;
   width: 250px;
 
   .edit {
@@ -598,7 +623,7 @@
   border: solid black 1px;
   border-radius: 30px;
   margin: 10px auto;
-  height: 400px;
+  height: 460px;
   width: 250px;
   position: relative;
 
@@ -615,24 +640,29 @@
       display: flex;
       justify-content: space-between;
       padding: 5px;
+      z-index: 5;
+      background-color: white;
 
       textarea {
         border: none;
-        height: auto;
-        font-family: Calibri Light;
+        border-radius: 30px;
+        font-family: "CalibriLight";
         vertical-align: middle;
-        padding: 10px 20px 2px 20px;
-        font-size: 14px;
+        padding: 2px 20px;
+        font-size: 13px;
         text-align: center;
         border-radius: 20px;
         resize: none;
-        height: 30px;
+        min-height: 30px;
+        width: 80%;
       }
+
       .send {
         background-color: white;
         border-radius: 20px;
         cursor: pointer;
         border: none;
+        align-self: flex-end;
       }
     }
 
@@ -646,7 +676,7 @@
       justify-content: center;
       text-align: center;
       p {
-        font-family: Calibri Light;
+        font-family: "CalibriLight";
         font-size: 12px;
         color: grey;
       }
@@ -665,7 +695,7 @@
 
     .apercu-image {
       position: relative;
-      height: 330px;
+      height: 390px;
       overflow: auto;
       border-radius: 30px 30px 0px 0px;
 
@@ -686,7 +716,7 @@
       scrollbar-width: none; /* Firefox */
     }
     .cancel {
-      font-family: Calibri Light;
+      font-family: "CalibriLight";
       font-size: 20px;
       position: absolute;
       top: -2px;
@@ -739,9 +769,9 @@
 
     .warning {
       position: absolute;
-      top: 20%;
-
-      font-size: 15px;
+      top: 40%;
+      font-family: "SanFrancisco";
+      font-size: 13px;
       left: 50%;
       transform: translate(-50%);
       text-align: center;
@@ -749,8 +779,8 @@
     }
 
     .responses {
-      height: 50%;
-      width: 100%;
+      height: 60%;
+      width: 80%;
       overflow-y: auto;
 
       .resp {
@@ -785,9 +815,10 @@
         border-radius: 10px;
         color: white;
         text-decoration: none;
-        font-size: 24px;
+        font-size: 20px;
         border: none;
         cursor: pointer;
+        font-family: "SanFrancisco";
       }
 
       margin: 10px auto;
@@ -802,7 +833,7 @@
       cursor: pointer;
       border: solid black 1px;
       background-color: white;
-      font-family: Calibri;
+      font-family: "Calibri";
       border-radius: 20px;
       padding: 10px 50px;
       margin: 10px auto;
@@ -835,6 +866,7 @@
       .responses {
         height: 300px;
       }
+      margin-top: 80px;
     }
     .suivant {
       order: 1;
@@ -865,14 +897,14 @@
       text-align: center;
     }
     .m2 {
-      font-family: Calibri;
+      font-family: "Calibri";
       text-align: justify;
       color: grey;
       font-size: 14px;
       margin: 0px 10%;
       .contact {
         input {
-          font-family: Calibri;
+          font-family: "Calibri";
           border-radius: 5px;
           border: solid 1px black;
           width: 300px;
@@ -883,10 +915,13 @@
           border: solid 1px black;
           width: 300px;
           height: 150px;
-          font-family: Calibri;
+          font-family: "Calibri";
+        }
+        ::-webkit-input-placeholder {
+          font-family: "Calibri";
         }
         button {
-          font-family: Calibri;
+          font-family: "Calibri";
           border-radius: 5px;
           padding: 5px;
           border: solid 1px black;
