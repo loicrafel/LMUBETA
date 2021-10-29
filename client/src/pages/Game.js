@@ -115,7 +115,7 @@ const Game = () => {
               </div>
             ) : null}
           </div>
-          <div>
+          <div className="groupe1">
             <div className="indic">
               Ma situation : {!isEmpty(data) && data.description}
             </div>
