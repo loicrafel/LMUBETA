@@ -1,21 +1,20 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/navbar";
 import TextareaAutosize from "react-textarea-autosize";
 
 import { dateParser, isEmpty } from "../components/utils";
-import { AddResponse, Vote } from "../actions/post.actions";
+import { AddResponse, getRandomPost, Vote } from "../actions/post.actions";
+import { contribute } from "../actions/user.actions";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { contribute } from "../actions/user.actions";
 
 const Game = () => {
   const uid = useSelector((state) => state.authReducer.user);
+  const data = useSelector((state) => state.randomReducer[0]);
 
   const dispatch = useDispatch();
 
-  const [data, setData] = useState([]);
   const [vote, setVote] = useState("");
   const [reload, setReload] = useState(true);
   const [message, setMessage] = useState("");
@@ -45,12 +44,11 @@ const Game = () => {
 
   useEffect(() => {
     if (reload === true) {
-      axios.get(`api/post/random`).then((res) => {
-        setData(res.data[0]);
-      });
+      dispatch(getRandomPost());
     }
+
     setReload(false);
-  }, [reload]);
+  }, [reload, dispatch]);
 
   return (
     <div>

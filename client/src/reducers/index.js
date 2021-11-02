@@ -4,6 +4,7 @@ import postReducer from "./post.reducer";
 import allPostsReducer from "./allPosts.reducer";
 import errorReducer from "./error.reducer";
 import authReducer from "./auth.reducer";
+import randomReducer from "./random.reducer";
 
 export default combineReducers({
   usersReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   allPostsReducer,
   errorReducer,
   authReducer,
+  randomReducer,
 });
