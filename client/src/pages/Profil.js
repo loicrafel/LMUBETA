@@ -66,9 +66,9 @@ const Profil = () => {
                         <b>
                           {users.map((user) => {
                             if (user._id === uid.id) return user.contributions;
-                            else return null;
+                            else return 0;
                           })}
-                        </b>{" "}
+                        </b>
                         contributions
                       </li>
                     </ul>

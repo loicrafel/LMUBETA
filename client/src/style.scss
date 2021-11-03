@@ -749,7 +749,7 @@ textarea {
     position: relative;
     margin-top: 10px;
     .groupe1 {
-      height: 20%;
+      height: 100px;
       width: 70%;
     }
     .indic {
@@ -759,6 +759,8 @@ textarea {
       background-color: rgb(255, 153, 153);
       padding: 15px 30px;
       border-radius: 10px;
+      max-height: 80px;
+      overflow-y: auto;
     }
     .date {
       align-self: right;
@@ -780,7 +782,7 @@ textarea {
     }
 
     .responses {
-      height: 58%;
+      height: 300px;
       width: 80%;
       overflow-y: auto;
 
