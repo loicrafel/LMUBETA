@@ -69,6 +69,7 @@ module.exports.vote = (req, res) => {
 
       if (!Resp) return res.status(404).send("Comment not found");
       Resp.vote = Resp.vote + 1;
+      Resp.supporters = [...Resp.supporters, req.body.voterId];
 
       return docs.save((err) => {
         if (!err) return res.status(200).send(docs);
@@ -163,6 +164,7 @@ module.exports.AddResponse = (req, res, next) => {
             text: req.body.text,
             vote: 1,
             timestamp: new Date().getTime(),
+            posterId: req.body.posterId,
           },
         },
       },
@@ -175,4 +177,18 @@ module.exports.AddResponse = (req, res, next) => {
   } catch (err) {
     return res.status(403).send(err);
   }
+};
+
+module.exports.closePost = (req, res, next) => {
+  PostModel.updateOne(
+    { _id: req.params.id },
+    {
+      after: {
+        context: req.body.context,
+      },
+      _id: req.params.id,
+    }
+  )
+    .then(() => res.status(200).json({ message: "Objet modifié !" }))
+    .catch((error) => res.status(400).json({ error }));
 };

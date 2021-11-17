@@ -25,9 +25,17 @@ const PostSchema = new mongoose.Schema(
           text: String,
           vote: Number,
           timestamp: Number,
+          posterId: String,
+          supporters: [String],
         },
       ],
       required: true,
+    },
+    after: {
+      type: {
+        choice: String,
+        context: String,
+      },
     },
   },
   {

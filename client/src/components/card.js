@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost, publish } from "../actions/post.actions";
+import { close, deletePost } from "../actions/post.actions";
 
 import LikeButton from "./LikeButton";
 import { dateParser, isEmpty } from "./utils";
+
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+
+import TextareaAutosize from "react-textarea-autosize";
 
 const Card = ({ post }) => {
   const uid = useSelector((state) => state.authReducer.user);
@@ -13,17 +18,20 @@ const Card = ({ post }) => {
   const total = post.responses
     .map((item) => item.vote)
     .reduce((prev, curr) => prev + curr, 0);
-  const [publied, setPublied] = useState(post.public);
-  const publier = () => {
-    dispatch(publish(post._id));
-    setPublied(!publied);
+
+  const [message, setMessage] = useState("");
+  const end = () => {
+    dispatch(close(post._id, message));
+    setMessage("");
   };
 
   return (
-    <div className="card-container">
+    <div className="card-background">
       <div className="edit">
         {uid.id === post.posterId && (
           <div>
+            {" "}
+            <p>Supprimer</p>
             <img
               onClick={() => {
                 if (window.confirm("Voulez-vous supprimer cet article ?")) {
@@ -35,69 +43,112 @@ const Card = ({ post }) => {
             />
           </div>
         )}
-        {uid.id === post.posterId && publied === false && (
-          <div>
-            <img src="../img/edit.svg" onClick={publier} alt="edit" />
-          </div>
-        )}
-        {uid.id === post.posterId && publied && (
-          <div>
-            <img src="../img/unedit.svg" onClick={publier} alt="unedit" />
-          </div>
-        )}
+
+        <div>
+          {post.after ? <p>Terminé</p> : <p>En cours</p>}
+          <img src="../img/write.svg" alt="bin" />
+        </div>
 
         <div>
           <LikeButton post={post} />
         </div>
-        <div className="date">
-          {dateParser(post.createdAt)} <br />
-          {uid.id === post.posterId ? (
-            <p>Par vous</p>
-          ) : (
-            <p>
-              Par{" "}
-              {!isEmpty(usersData) &&
-                usersData
-                  .map((user) => {
-                    if (user._id === post.posterId) return user.pseudo;
-                    else return null;
-                  })
-                  .join("")}
-            </p>
-          )}
-        </div>
       </div>
-      <div className="card">
-        <div className="card-pic">
-          <img src={post.picture} alt="thread" />
+
+      <div className="date">
+        {dateParser(post.createdAt)}
+
+        {uid.id === post.posterId ? (
+          <p>Par vous</p>
+        ) : (
+          <p>
+            Par{" "}
+            {!isEmpty(usersData) &&
+              usersData
+                .map((user) => {
+                  if (user._id === post.posterId) return user.pseudo;
+                  else return null;
+                })
+                .join("")}
+          </p>
+        )}
+      </div>
+      <div className="card-container">
+        <div className="card">
+          <div className="card-pic">
+            <img src={post.picture} alt="thread" />
+          </div>
+          <div className="imessage">
+            <p className="from-me">{post.description}</p>
+            <br />
+            {post.responses.length !== 0 ? (
+              <p className="from-them">
+                {post.responses.length} proposition
+                {post.responses.length === 1 ? null : "s"} !
+              </p>
+            ) : (
+              <p className="from-them">Aucune prosition pour l'instant</p>
+            )}
+            <br />
+            {post.responses.length !== 0 ? (
+              <div>
+                {post.responses
+                  .sort((a, b) => b.vote - a.vote)
+                  .map((resp) => (
+                    <div
+                      className={
+                        resp.posterId === uid.id ||
+                        resp.supporters.includes(uid.id)
+                          ? "from-them active-response"
+                          : "from-them"
+                      }
+                      key={resp._id}
+                    >
+                      <p className="text">{resp.text}</p>
+                      <p className="score">
+                        {Math.round((resp.vote / total) * 100)}%
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            ) : null}
+            {post.after ? (
+              <p className="from-me">{post.after.context}</p>
+            ) : null}
+          </div>
         </div>
-        <div className="imessage">
-          <p className="from-me">{post.description}</p>
-          <br />
-          {post.responses.length !== 0 ? (
-            <p className="from-them">
-              {post.responses.length} proposition
-              {post.responses.length === 1 ? null : "s"} !
-            </p>
-          ) : (
-            <p className="from-them">Aucune prosition pour l'instant</p>
-          )}
-          <br />
-          {post.responses.length !== 0 ? (
-            <div>
-              {post.responses
-                .sort((a, b) => b.vote - a.vote)
-                .map((resp) => (
-                  <div className="from-them" key={resp._id}>
-                    <p className="text">{resp.text}</p>
-                    <p className="score">
-                      {Math.round((resp.vote / total) * 100)}%
-                    </p>
+        {post.posterId === uid.id && (
+          <div className="footer">
+            <TextareaAutosize
+              maxRows={5}
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+              placeholder={
+                !isEmpty(post.after)
+                  ? "Une correction ou une mise à jour à apporter?"
+                  : "Explique le dénouement de la situation aux utilisateurs qui t'ont aidé"
+              }
+            />
+            {message ? (
+              <button className="send" onClick={end}>
+                <img src="./img/send.svg" alt="envoyer" height="30px" />
+              </button>
+            ) : (
+              <button className="send">
+                <Popup
+                  trigger={
+                    <img src="./img/send.svg" alt="send" height="30px" />
+                  }
+                  position={["bottom center", "bottom right", "bottom left"]}
+                  closeOnDocumentClick
+                >
+                  <div className="popup">
+                    Veuillez entrer un message et une photo!
                   </div>
-                ))}
-            </div>
-          ) : null}
-        </div>
+                </Popup>
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

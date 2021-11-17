@@ -10,7 +10,13 @@ const Logout = () => {
   };
 
   return (
-    <img onClick={(e) => logout(e)} src="../img/logout.svg" alt="logout" />
+    <img
+      src="../img/logout.svg"
+      alt="login"
+      height="30px"
+      color="grey"
+      onClick={(e) => logout(e)}
+    />
   );
 };
 

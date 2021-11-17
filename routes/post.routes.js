@@ -9,6 +9,7 @@ router.get("/getall/:id", postController.getPostsfromUser);
 router.get("/random", postController.randomPost);
 router.post("/", upload.single("file"), postController.createPost);
 router.put("/:id", postController.vote);
+router.put("/close/:id", postController.closePost);
 router.put("/publish/:id", postController.publish);
 router.patch("/add/:id", postController.AddResponse);
 router.delete("/:id", postController.deletePost);

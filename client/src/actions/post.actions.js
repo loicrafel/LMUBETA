@@ -15,6 +15,7 @@ export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 export const PUBLISH = "PUBLISH";
 export const GET_ERRORS = "GET_ERRORS";
+export const CLOSE = "CLOSE";
 
 export const getPost = (uid) => {
   return (dispatch) => {
@@ -32,9 +33,7 @@ export const getPosts = (num) => {
     return axios
       .get(`api/post/`)
       .then((res) => {
-        const array = res.data
-          .filter((post) => post.public === true)
-          .slice(0, num);
+        const array = res.data.slice(0, num);
         dispatch({ type: GET_PUBLIC_POSTS, payload: array });
         dispatch({ type: GET_ALL_POSTS, payload: res.data });
       })
@@ -77,26 +76,26 @@ export const deletePost = (postId) => {
   };
 };
 
-export const Vote = (postId, respId) => {
+export const Vote = (postId, respId, voterId) => {
   return (dispatch) => {
     return axios({
       method: "put",
       url: `api/post/${postId}`,
-      data: { respId },
+      data: { respId, voterId },
     })
       .then((res) => {
-        dispatch({ type: VOTE, payload: { postId, respId } });
+        dispatch({ type: VOTE, payload: { postId, respId, voterId } });
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const AddResponse = (postId, text) => {
+export const AddResponse = (postId, text, posterId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
       url: `api/post/add/${postId}`,
-      data: { text },
+      data: { text, posterId },
     })
       .then((res) => {
         dispatch({ type: ADD_RESPONSE, payload: { postId } });
@@ -141,6 +140,20 @@ export const publish = (postId) => {
     })
       .then((res) => {
         dispatch({ type: PUBLISH, payload: { postId } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const close = (postId, context) => {
+  return (dispatch) => {
+    return axios({
+      method: "put",
+      url: `api/post/close/${postId}`,
+      data: { context },
+    })
+      .then((res) => {
+        dispatch({ type: CLOSE, payload: { postId, context } });
       })
       .catch((err) => console.log(err));
   };

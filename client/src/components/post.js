@@ -87,7 +87,7 @@ const NewProfile = () => {
               />
             </div>
 
-            <p>Upload ta conversation!</p>
+            <p>Upload une capture d'écran</p>
           </div>
         )}
         <div className="footer">
@@ -95,7 +95,7 @@ const NewProfile = () => {
             maxRows={5}
             onChange={(e) => setMessage(e.target.value)}
             value={message}
-            placeholder="Et explique ta situation en quelques mots..."
+            placeholder="Et explique ta situation en quelques mots et ce que pourrait t'apporter la communauté..."
           />
           {message && postPicture ? (
             <button className="send" onClick={handlePost}>

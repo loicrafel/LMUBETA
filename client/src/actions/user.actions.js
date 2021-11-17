@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const GET_USER = "GET_USER";
 export const DELETE_USER = "DELETE_USER";
-export const CONTRIBUTE = "CONTRIBUTE";
 
 export const getUser = (uid) => {
   return (dispatch) => {
@@ -28,7 +27,7 @@ export const deleteUser = (uid) => {
   };
 };
 
-export const contribute = (uid) => {
+/* export const contribute = (uid) => {
   return (dispatch) => {
     return axios({
       method: "put",
@@ -40,3 +39,4 @@ export const contribute = (uid) => {
       .catch((err) => console.log(err));
   };
 };
+*/

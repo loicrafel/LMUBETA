@@ -2,6 +2,7 @@
 
 * {
   margin: 0;
+
   /* width */
   ::-webkit-scrollbar {
     width: 10px;
@@ -17,6 +18,26 @@
   ::-webkit-scrollbar-thumb {
     background: grey;
     border-radius: 10px;
+  }
+}
+
+.list-choice {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: "CalibriLight";
+  margin-bottom: 50px;
+  .unactive {
+    border: solid 1px grey;
+    padding: 10px;
+    border-radius: 20px;
+  }
+  .active-class {
+    background-color: rgb(255, 153, 153);
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
   }
 }
 
@@ -69,18 +90,33 @@ textarea {
   margin-top: 10px;
 }
 // navbar
-
-.nav-container {
-  position: fixed;
-  top: 0;
-  margin: 0 auto;
-  width: 100%;
+.navigation {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   background-color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
   z-index: 10;
-  height: auto;
   box-shadow: 2px 2px 2px rgba(51, 51, 51, 0.16);
+  align-items: center;
+  padding-right: 50px;
+  .search {
+    background-color: whitesmoke;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    width: 20vw;
+    padding-left: 5px;
+    input {
+      background-color: whitesmoke;
+      border: none;
+      width: 10vw;
+    }
+  }
   .logo {
     padding-left: 30px;
     margin-top: 5px;
@@ -99,22 +135,41 @@ textarea {
       }
     }
   }
-  .flag-container {
-    width: auto;
-    padding-right: 30px;
 
+  .flag-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 5vw;
     align-items: center;
+    .reste {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 5vw;
+    }
     .icons {
-      padding-right: 15px;
+      display: flex;
+      flex-direction: row;
+      height: 60px;
+      margin-bottom: 5px;
+      gap: 1vw;
 
-      img {
-        cursor: pointer;
-        height: 30px;
+      .icon {
+        color: transparent;
+        border-radius: 10px 10px 0 0;
+        height: 100%;
+        stroke: grey;
+        stroke-width: 1px;
+        padding-right: 10px;
         padding-left: 10px;
+      }
+      .icon:hover,
+      .active-icon {
+        color: rgb(255, 153, 153);
+        background-color: whitesmoke;
+        stroke: none;
+        border-bottom: solid 5px rgb(255, 153, 153);
       }
     }
     .menu {
@@ -122,30 +177,24 @@ textarea {
       cursor: pointer;
     }
     .flag {
+      padding-right: 5vw;
       img {
         height: 25px;
+        padding-left: 10px;
       }
     }
 
     @media screen and(max-width: 800px) {
-      padding-right: 15px;
-
+      .reste {
+        .autre {
+          display: none;
+        }
+      }
       .icons {
         display: none;
       }
-      img {
-        height: 30px;
-        cursor: pointer;
-      }
       .menu {
         display: flex;
-        padding-right: 15px;
-
-        img {
-          height: 30px;
-          padding-left: 10px;
-          cursor: pointer;
-        }
       }
     }
   }
@@ -165,18 +214,27 @@ textarea {
 
 .responsive {
   display: flex;
-  position: fixed;
-  right: 90px;
-  top: 70px;
-  padding: 2px 10px;
-  flex-direction: column;
+  padding: 10px;
+  flex-direction: row;
+  justify-content: space-evenly;
   gap: 10px;
   align-items: center;
-  border: solid 1px black;
-  border-radius: 10px;
-  background-color: white;
+  margin-top: 60px;
   box-shadow: -2px 2px 4px rgb(218, 217, 217);
-  z-index: 10;
+  z-index: 100;
+  .icon {
+    color: transparent;
+    border-radius: 10px 10px 0 0;
+    height: 100%;
+    stroke: grey;
+    stroke-width: 1px;
+  }
+  .icon:hover,
+  .active-resp {
+    color: rgb(255, 153, 153);
+    stroke: none;
+  }
+
   img {
     height: 30px;
   }
@@ -187,61 +245,101 @@ textarea {
 // accueil
 
 .accueil {
-  margin-top: 80px;
+  height: 100%;
   display: flex;
+  flex-direction: row;
+
   .image {
-    flex-basis: 35%;
+    margin-top: 80px;
+    flex: 35%;
     img {
-      width: 99%;
+      width: 35vw;
     }
   }
+
   .message {
-    flex-basis: 65%;
+    flex: 65%;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
-    text-align: center;
     justify-content: space-evenly;
-    gap: 10px;
-    .m1 {
-      font-family: "Franklin";
-      font-size: 42px;
-    }
-    .m2 {
-      font-family: "Calibri";
-      text-align: justify;
-      color: grey;
-      font-size: 18px;
-      margin: 0 20%;
-    }
-    .m3 {
-      height: auto;
-      font-family: "Calibri";
-      display: flex;
-      justify-content: center;
+    gap: 50px;
 
-      p {
-        font-family: "Calibri";
+    .message-container {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      text-align: center;
+      gap: 50px;
+      padding-bottom: 50px;
+      .m1 {
+        font-family: "Franklin";
+        font-size: 42px;
+        margin-top: 50px;
+      }
+      .m2 {
+        font-family: "CalibriLight";
+        text-align: justify;
         color: grey;
         font-size: 16px;
-      }
+        margin: 0 20%;
+        .suivant {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 10px;
+        }
 
-      .button-signup {
-        background-color: rgb(255, 153, 153);
-        padding: 10px 20px;
-        border-radius: 8px;
-        color: white;
-        text-decoration: none;
-        padding: 10px 50px;
-        margin: 20px;
-        font-size: 24px;
+        .row {
+          display: flex;
+          justify-content: center;
+          flex-direction: row;
+          align-items: center;
+          padding-top: 5px;
+          text-align: center;
+          .number {
+            background-color: rgb(255, 153, 153);
+            padding-left: 10px;
+            padding-right: 10px;
+            width: auto;
+            border-radius: 20px;
+            color: white;
+            margin-right: 5px;
+            font-size: 25px;
+          }
+        }
       }
-
-      .souligne {
-        margin-top: 10px;
-        text-decoration: underline;
+      .m3 {
+        height: auto;
         font-family: "Calibri";
-        color: grey;
-        font-size: 12px;
+        display: flex;
+        justify-content: center;
+
+        p {
+          font-family: "CalibriLight";
+          color: grey;
+          font-size: 16px;
+        }
+
+        .button-signup {
+          background-color: rgb(255, 153, 153);
+          padding: 10px 20px;
+          border-radius: 8px;
+          color: white;
+          text-decoration: none;
+          padding: 10px 50px;
+          margin: 20px;
+          font-size: 24px;
+        }
+
+        .souligne {
+          margin-top: 10px;
+          text-decoration: underline;
+          font-family: "Calibri";
+          color: grey;
+          font-size: 12px;
+        }
       }
     }
   }
@@ -256,21 +354,29 @@ textarea {
       display: none;
     }
     .message {
-      .m1 {
-        margin: 10px;
-        p {
-          font-size: 38px;
+      margin-left: 0%;
+      .message-container {
+        gap: 30px;
+        .m2 {
+          font-family: "CalibriLight";
+          text-align: justify;
+          color: grey;
+          font-size: 16px;
+          margin: 0 10%;
+        }
+        .m1 {
+          margin: 10px;
+          p {
+            font-size: 38px;
+          }
         }
       }
-      .m2 {
-        margin: 0 10%;
+      .m3 {
+        margin-top: 50px;
+        gap: 20px;
+        flex-direction: column;
+        margin-bottom: 50px;
       }
-    }
-    .m3 {
-      margin-top: 50px;
-      gap: 20px;
-      flex-direction: column;
-      margin-bottom: 50px;
     }
   }
 }
@@ -286,12 +392,17 @@ textarea {
     padding: 10px 20px;
     margin: 0;
     font-size: 14px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid rgb(255, 153, 153);
+    border-radius: 20px;
 
     &:focus {
       box-shadow: 0 0 3px rgba(51, 51, 51, 0.2);
     }
+  }
+  .connect {
+    background-color: rgb(255, 153, 153);
+    color: white;
   }
   a {
     color: rgb(62, 62, 214);
@@ -301,17 +412,17 @@ textarea {
 //profil CONNECTION
 
 .log-container {
-  margin-top: 100px;
+  margin-top: 50px;
   font-family: "CalibriLight";
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   .image {
     flex-basis: 35%;
     @media screen and(max-width: 800px) {
       flex-basis: 0%;
     }
     img {
-      width: 99%;
+      width: 100%;
       @media screen and(max-width: 800px) {
         display: none;
       }
@@ -321,10 +432,10 @@ textarea {
     flex-basis: 50%;
     min-width: 300px;
     text-align: center;
+    border-radius: 20px;
     margin: 0 auto;
     padding: 10px;
-    border-radius: 20px;
-    border: 1px solid rgb(255, 153, 153);
+    box-shadow: -2px 2px 4px rgb(218, 217, 217);
     height: auto;
 
     @media screen and(max-width: 800px) {
@@ -350,7 +461,7 @@ textarea {
 
         li {
           cursor: pointer;
-          border-radius: 20px;
+          border-radius: 10px;
           padding: 10px;
           transition: 0.2s;
 
@@ -360,10 +471,11 @@ textarea {
           }
         }
         .active-btn {
-          background: pink;
-
+          background: rgb(255, 153, 153);
+          color: white;
           &:hover {
             background: whitesmoke;
+            color: black;
           }
         }
         #login {
@@ -397,52 +509,74 @@ textarea {
     margin-top: 80px;
     display: flex;
     .post {
-      flex-basis: 35%;
+      position: fixed;
+      width: 35%;
     }
-    .message {
-      flex-basis: 60%;
+    .post2 {
+      display: none;
+    }
+    .profil-thread {
+      margin-left: 35%;
       display: flex;
       flex-direction: column;
-      text-align: center;
-      justify-content: space-evenly;
 
-      .m1 {
-        p {
-          font-family: "Franklin";
-          font-size: 42px;
-          margin: 20px 10%;
+      .message {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 10vh;
+        height: 80vh;
+        gap: 40px;
+
+        .m1 {
+          p {
+            font-family: "Franklin";
+            font-size: 36px;
+            margin: 20px 10%;
+          }
         }
-      }
-      .m2 {
-        font-family: "Calibri";
-        text-align: justify;
-        color: grey;
-        font-size: 18px;
-        margin: 0 10%;
+        .m2 {
+          p {
+            font-family: "CalibriLight";
+            text-align: justify;
+            color: grey;
+            font-size: 16px;
+            margin: 0 10%;
+          }
+        }
       }
     }
   }
 
   @media (max-width: 800px) {
     .profil {
-      margin-top: 130px;
       flex-direction: column;
+      display: flex;
+      margin-top: 20px;
       .post {
-        flex-basis: 90%;
-        order: 1;
+        display: none;
       }
-      .message {
-        flex-basis: 90%;
-        order: 0;
-        margin-bottom: 50px;
-        .m1 {
-          p {
-            font-size: 38px;
+      .post2 {
+        display: flex;
+        margin-bottom: 30px;
+      }
+
+      .profil-thread {
+        margin-left: 0%;
+        margin-top: 20px;
+        .message {
+          flex-basis: 90%;
+          margin-bottom: 50px;
+          .m1 {
+            p {
+              font-size: 38px;
+            }
+          }
+          .m3 {
+            margin-top: 100px;
           }
         }
-      }
-      .m3 {
-        margin-top: 100px;
       }
     }
   }
@@ -450,174 +584,190 @@ textarea {
 
 .settings {
   position: absolute;
-  top: 80px;
+  top: 70px;
   right: 20px;
-  img {
-    height: 30px;
-  }
-}
-.moresettings {
-  position: absolute;
-  top: 80px;
-  right: 20px;
-  border: 1px solid black;
-  background-color: white;
-  border-radius: 15px;
-
-  .close {
-    height: 30px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-  }
-  .listsettings {
-    margin: 10px;
-    padding-right: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    .insidelistsettings {
-      text-decoration: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: row;
-      gap: 5px;
-      align-items: center;
-      p {
-        font-size: 14px;
-        font-family: "Calibri";
-        color: grey;
-      }
-      li {
-        list-style-type: none;
-        font-size: 14px;
-        font-family: "Calibri";
-        color: grey;
-      }
-      img {
-        height: 20px;
-      }
-    }
-  }
+  color: transparent;
+  stroke: grey;
+  stroke-width: 1px;
+  z-index: 1;
 }
 
 //thread
 
 .thread {
-  margin-top: 100px;
-  padding: 50px;
-
+  margin-bottom: 50px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 50px;
+  .intro {
+    font-family: "CalibriLight";
+    text-align: center;
+    padding: 20px;
+    width: 60%;
+  }
 }
 
 //card
-
-.card-container {
+.card-background {
+  border-radius: 10px;
+  background-color: "white";
   display: flex;
-  flex-direction: column;
-  border: solid black 1px;
-  border-radius: 35px;
-  margin: 10px auto;
-  height: 460px;
-  width: 250px;
+  flex-direction: column-reverse;
+  width: 60%;
+  box-shadow: -2px 2px 4px rgb(218, 217, 217);
+  @media screen and(max-width: 800px) {
+    width: 95%;
+  }
+  .date {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    font-family: "SanFrancisco";
+    font-size: 12px;
+    color: black;
+    margin: 20px;
+    gap: 10px;
+    border-top: solid 1px lightgrey;
+    padding-top: 20px;
+  }
 
   .edit {
     margin: 5px;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-evenly;
+    font-family: "SanFrancisco";
+    text-align: center;
+    font-size: 12px;
     img {
-      height: 25px;
-      padding: 0 5px;
+      height: 35px;
+      padding: 5px;
       cursor: pointer;
     }
-    .like-container {
-      img {
-        height: 25px;
-        padding: 0 10px;
-        cursor: pointer;
-      }
-    }
-
-    .date {
-      align-self: center;
-
-      font-family: "SanFrancisco";
-      font-size: 12px;
-      color: grey;
-    }
   }
-
-  .card::-webkit-scrollbar {
-    display: none;
-  }
-  .card {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  .card {
+  .card-container {
     display: flex;
+    align-self: center;
     flex-direction: column;
-    overflow: auto;
+    border: solid black 1px;
     border-radius: 35px;
-
-    .card-pic {
-      align-self: flex-end;
-      padding: 5px 10px;
-      img {
-        width: 180px;
-        border-radius: 20px;
-        box-shadow: -2px 2px 4px rgb(218, 217, 217);
-      }
+    margin: 10px;
+    height: 460px;
+    width: 250px;
+    box-shadow: -2px 2px 4px rgb(218, 217, 217);
+    position: relative;
+    .card::-webkit-scrollbar {
+      display: none;
     }
-
-    .imessage {
+    .card {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    .card {
       display: flex;
       flex-direction: column;
-      font-family: "SanFrancisco";
-      font-size: 12px;
-      margin: 0 auto;
-      width: 90%;
-      padding: 1px 10px;
-      margin-bottom: 5px;
+      overflow: auto;
+      border-radius: 35px;
 
-      p {
-        max-width: 75%;
-        padding: 5px 10px;
-        margin-top: 5px;
-      }
-
-      .from-me {
+      .card-pic {
         align-self: flex-end;
-        background-color: rgb(255, 153, 153);
-        color: #fff;
-        border-radius: 10px;
+        padding: 5px 10px;
+        img {
+          width: 180px;
+          border-radius: 20px;
+          box-shadow: -2px 2px 4px rgb(218, 217, 217);
+        }
       }
 
-      .from-them {
-        align-items: flex-start;
-        background-color: #e5e5ea;
-        color: #000;
-        border-radius: 10px;
-        max-width: 80%;
-        position: relative;
-        .text {
+      .imessage {
+        display: flex;
+        flex-direction: column;
+        font-family: "SanFrancisco";
+        font-size: 12px;
+        width: 90%;
+        padding: 1px 10px;
+        margin-bottom: 70px;
+
+        p {
           max-width: 75%;
+          padding: 5px 10px;
+          margin-top: 5px;
         }
-        .score {
-          color: rgb(255, 153, 153);
-          position: absolute;
-          right: 5px;
-          bottom: 50%;
-          transform: translateY(50%);
+
+        .from-me {
+          align-self: flex-end;
+          background-color: rgb(255, 153, 153);
+          color: #fff;
+          border-radius: 10px;
+        }
+        .active-response {
+          border: 1px dashed black;
+        }
+        .from-them {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: row;
+          background-color: #e5e5ea;
+          color: #000;
+          border-radius: 10px;
+          max-width: 80%;
+          margin-top: 4px;
+
+          .text {
+            flex: 80%;
+          }
+
+          .score {
+            color: rgb(255, 153, 153);
+            flex: 20%;
+          }
         }
       }
     }
   }
 }
+
 //post
+
+.footer {
+  border: solid black 1px;
+  border-radius: 30px;
+  height: auto;
+  width: 90%;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  z-index: 5;
+  background-color: white;
+
+  textarea {
+    border: none;
+    border-radius: 30px;
+    font-family: "CalibriLight";
+    vertical-align: middle;
+    padding: 2px 20px;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 20px;
+    resize: none;
+    min-height: 30px;
+    width: 80%;
+  }
+
+  .send {
+    background-color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    align-self: flex-end;
+  }
+}
 
 .post-container {
   border: solid black 1px;
@@ -628,44 +778,6 @@ textarea {
   position: relative;
 
   .post-form {
-    .footer {
-      border: solid black 1px;
-      border-radius: 30px;
-      height: auto;
-      width: 90%;
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translate(-50%);
-      display: flex;
-      justify-content: space-between;
-      padding: 5px;
-      z-index: 5;
-      background-color: white;
-
-      textarea {
-        border: none;
-        border-radius: 30px;
-        font-family: "CalibriLight";
-        vertical-align: middle;
-        padding: 2px 20px;
-        font-size: 13px;
-        text-align: center;
-        border-radius: 20px;
-        resize: none;
-        min-height: 30px;
-        width: 80%;
-      }
-
-      .send {
-        background-color: white;
-        border-radius: 20px;
-        cursor: pointer;
-        border: none;
-        align-self: flex-end;
-      }
-    }
-
     .icon {
       position: absolute;
       top: 40%;
@@ -949,13 +1061,9 @@ textarea {
 .like-container {
   font-family: "SanFrancisco";
   font-size: 12px;
-  position: relative;
-
-  span {
-    position: absolute;
-    top: 5px;
-    left: 3px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .popup {
   font-family: "SanFrancisco";

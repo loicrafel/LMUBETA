@@ -1,5 +1,5 @@
 const UserModel = require("../models/user.model");
-
+const PostModel = require("../models/post.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 
 module.exports.getAllUsers = async (req, res) => {
@@ -35,21 +35,26 @@ module.exports.deleteUser = (req, res) => {
   });
 };
 
-module.exports.contribute = (req, res) => {
+module.exports.choose = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
   try {
-    return UserModel.findById(req.params.id, (err, docs) => {
-      docs.contributions = docs.contributions + 1;
+    return PostModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        after: {
+          choice: req.body.choice,
+          context: req.body.context,
+        },
+      },
 
-      return docs.save((err) => {
-        if (!err) return res.status(200).send(docs);
-        console.log("votre publication a bien été enregistrée");
-        return res.status(500).send(err);
-      });
-    });
+      (err, docs) => {
+        if (!err) return res.send(docs);
+        else return res.status(402).send(err);
+      }
+    );
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(403).send(err);
   }
 };

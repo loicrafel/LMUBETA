@@ -47,7 +47,7 @@ const SignIn = () => {
           {errors?.password || errors?.passwordincorrect}
         </div>
         <br />
-        <input type="submit" value="Se connecter" />
+        <input type="submit" value="Se connecter" className="connect" />
       </form>
     </div>
   );

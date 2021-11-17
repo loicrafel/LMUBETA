@@ -108,7 +108,7 @@ const SignUpForm = () => {
             </label>
             <div className="terms error"></div>
             <br />
-            <input type="submit" value="S'inscrire" />
+            <input type="submit" value="S'inscrire" className="connect" />
           </form>
         </div>
       )}

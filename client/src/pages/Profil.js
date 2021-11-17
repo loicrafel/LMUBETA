@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Log from "../components/Log";
 import Navbar from "../components/navbar";
 import Post from "../components/post";
@@ -7,36 +7,19 @@ import Thread from "../components/thread";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../components/utils";
 import { getPost } from "../actions/post.actions";
-import { NavLink } from "react-router-dom";
-import { logoutUser } from "../actions/auth.actions";
-import { deleteUser } from "../actions/user.actions";
+import SettingsIcon from "@mui/icons-material/Settings";
+import useModal from "../components/Modal/useModal";
+import Modal2 from "../components/Modal/modal2";
 
 const Profil = () => {
   const uid = useSelector((state) => state.authReducer.user);
   const privateposts = useSelector((state) => state.postReducer);
-  const users = useSelector((state) => state.usersReducer);
-  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPost(uid.id));
   }, [uid, dispatch]);
 
-  const logout = (e) => {
-    e.preventDefault();
-    setOpenModal(false);
-    dispatch(logoutUser());
-  };
-  const deleteuser = (id) => {
-    if (
-      window.confirm(
-        "Souhaitez-vous réellement supprimer votre compte? Cette action est irréversible."
-      )
-    ) {
-      setOpenModal(false);
-      dispatch(deleteUser(id));
-      dispatch(logoutUser());
-    }
-  };
+  const { isShowing, toggle } = useModal();
 
   return (
     <div>
@@ -44,87 +27,36 @@ const Profil = () => {
       <div>
         {uid.id ? (
           <div className="user">
-            {openModal ? (
-              <div className="moresettings">
-                <img
-                  className="close"
-                  src="../img/close.svg"
-                  alt="parametres"
-                  onClick={() => setOpenModal(!openModal)}
-                />
-                <div className="listsettings">
-                  <div className="insidelistsettings">
-                    <img src="../img/stat.svg" alt="statistiques" />
-                    <p>Statistiques de {uid.pseudo}</p>
-                  </div>
-                  <div className="insidelistsettings">
-                    <ul>
-                      <li>
-                        <b>{privateposts.length}</b> posts
-                      </li>
-                      <li>
-                        <b>
-                          {users.map((user) => {
-                            if (user._id === uid.id) return user.contributions;
-                            else return 0;
-                          })}
-                        </b>
-                        contributions
-                      </li>
-                    </ul>
-                  </div>
-                  <NavLink className="insidelistsettings" exact to="about">
-                    <img src="../img/help.svg" alt="parametres" />
-                    <p>Aide et assistance</p>
-                  </NavLink>
-                  <div
-                    className="insidelistsettings"
-                    onClick={(e) => logout(e)}
-                  >
-                    <img src="../img/logout.svg" alt="deconnection" />
-                    <p>Se déconnecter</p>
-                  </div>
-                  <div
-                    className="insidelistsettings"
-                    onClick={(e) => deleteuser(uid.id)}
-                  >
-                    <img src="../img/bin.svg" alt="delete-account" />
-                    <p>Supprimer le compte</p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="settings">
-                <img
-                  src="../img/settings.png"
-                  alt="parametres"
-                  onClick={() => setOpenModal(!openModal)}
-                />
-              </div>
-            )}
+            <Modal2 isShowing={isShowing} hide={toggle} />
+
+            <div className="settings">
+              <SettingsIcon fontSize="large" onClick={toggle} />
+            </div>
 
             <div className="profil">
               <div className="post">
                 <Post />
               </div>
 
-              <div className="message">
-                <div>
+              <div className="profil-thread">
+                <div className="message">
                   <div className="m1">
                     <p>
-                      Bienvenue {uid?.pseudo}. Tu peux soumettre une
-                      conversation ou consulter les réponses des autres joueurs.
+                      Bienvenue {uid?.pseudo}. Dans ton espace, tu peux
+                      soumettre une nouvelle demande, consulter les conseils
+                      donnés par les autres utilisateurs et voir si tes conseils
+                      sont appréciés.
                     </p>
                   </div>
-                  <br />
+
                   <div className="m2">
                     <p>
-                      Anonymement, les joueurs choisiront les réponses les plus
-                      pertinentes à ta conversation. Tu pourras ensuite
-                      consulter ces réponses sur ton espace personnel.
+                      Grâce à LightMeUp, l'intelligence collective devient ton
+                      coach! Les conseils les plus pertinents émergeront pour
+                      t'aider à progresser dans le domaine de la séduction en
+                      ligne.
                     </p>
                   </div>
-                  <br />
 
                   <div>
                     <img
@@ -134,10 +66,13 @@ const Profil = () => {
                     />
                   </div>
                 </div>
+                <div className="post2">
+                  <Post />
+                </div>
+
+                {!isEmpty(privateposts) && <Thread posts={privateposts} />}
               </div>
             </div>
-
-            {!isEmpty(privateposts) && <Thread posts={privateposts} />}
           </div>
         ) : (
           <div className="log-container">

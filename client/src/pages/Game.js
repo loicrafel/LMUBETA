@@ -5,7 +5,6 @@ import TextareaAutosize from "react-textarea-autosize";
 
 import { dateParser, isEmpty } from "../components/utils";
 import { AddResponse, getRandomPost, Vote } from "../actions/post.actions";
-import { contribute } from "../actions/user.actions";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
@@ -21,9 +20,7 @@ const Game = () => {
 
   const handleVote = async () => {
     if (vote) {
-      dispatch(Vote(data._id, vote));
-      // nombre de contributions de l'utilisateur s'il est connecté
-      if (uid.id) dispatch(contribute(uid.id));
+      dispatch(Vote(data._id, vote, uid.id ? uid.id : null));
       setReload(true);
     } else {
       alert("Veuillez selectionner une réponse");
@@ -31,9 +28,7 @@ const Game = () => {
   };
 
   const handlePost = async () => {
-    dispatch(AddResponse(data._id, message));
-    // nombre de contributions de l'utilisateur s'il est connecté
-    if (uid.id) dispatch(contribute(uid.id));
+    dispatch(AddResponse(data._id, message, uid.id ? uid.id : null));
     cancelPost();
     setReload(true);
   };
@@ -114,9 +109,7 @@ const Game = () => {
             ) : null}
           </div>
           <div className="groupe1">
-            <div className="indic">
-              Ma situation : {!isEmpty(data) && data.description}
-            </div>
+            <div className="indic">{!isEmpty(data) && data.description}</div>
             <p className="date">
               Publié le {!isEmpty(data) && dateParser(data.createdAt)}
             </p>
