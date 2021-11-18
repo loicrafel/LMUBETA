@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { close, deletePost } from "../actions/post.actions";
-
 import LikeButton from "./LikeButton";
 import { dateParser, isEmpty } from "./utils";
-
+import SendIcon from "@mui/icons-material/Send";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-
 import TextareaAutosize from "react-textarea-autosize";
+import { IconButton } from "@mui/material";
 
 const Card = ({ post }) => {
   const uid = useSelector((state) => state.authReducer.user);
@@ -30,7 +29,6 @@ const Card = ({ post }) => {
       <div className="edit">
         {uid.id === post.posterId && (
           <div>
-            {" "}
             <p>Supprimer</p>
             <img
               onClick={() => {
@@ -73,7 +71,7 @@ const Card = ({ post }) => {
         )}
       </div>
       <div className="card-container">
-        <div className="card">
+        <div className={post.posterId === uid.id ? "card hop" : "card"}>
           <div className="card-pic">
             <img src={post.picture} alt="thread" />
           </div>
@@ -129,23 +127,23 @@ const Card = ({ post }) => {
               }
             />
             {message ? (
-              <button className="send" onClick={end}>
-                <img src="./img/send.svg" alt="envoyer" height="30px" />
-              </button>
+              <IconButton aria-label="delete" onClick={end}>
+                <SendIcon />
+              </IconButton>
             ) : (
-              <button className="send">
+              <div>
                 <Popup
                   trigger={
-                    <img src="./img/send.svg" alt="send" height="30px" />
+                    <IconButton aria-label="delete">
+                      <SendIcon />
+                    </IconButton>
                   }
                   position={["bottom center", "bottom right", "bottom left"]}
                   closeOnDocumentClick
                 >
-                  <div className="popup">
-                    Veuillez entrer un message et une photo!
-                  </div>
+                  <div className="popup">Veuillez entrer un message!</div>
                 </Popup>
-              </button>
+              </div>
             )}
           </div>
         )}

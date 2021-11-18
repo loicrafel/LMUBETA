@@ -2,7 +2,6 @@
 
 * {
   margin: 0;
-
   /* width */
   ::-webkit-scrollbar {
     width: 10px;
@@ -20,7 +19,65 @@
     border-radius: 10px;
   }
 }
+.center {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+}
+.hop {
+  margin-bottom: 65px;
+  border-radius: 35px 35px 0 0;
+}
 
+.dots {
+  width: 3.5em;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.dots div {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  background-color: salmon;
+  animation: fade 0.8s ease-in-out alternate infinite;
+}
+
+.dots div:nth-of-type(1) {
+  animation-delay: -0.4s;
+}
+
+.dots div:nth-of-type(2) {
+  animation-delay: -0.2s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.click {
+  cursor: pointer;
+  transition: 0.5s;
+}
+.click:hover {
+  transform: scale(1.1);
+  transition: 0.5s;
+}
 .list-choice {
   display: flex;
   flex-direction: row;
@@ -32,12 +89,16 @@
     border: solid 1px grey;
     padding: 10px;
     border-radius: 20px;
+    transition: 0.5s;
   }
-  .active-class {
+  .active-class,
+  .unactive:hover {
     background-color: rgb(255, 153, 153);
     color: white;
     padding: 10px;
     border-radius: 20px;
+    border: none;
+    transition: 0.5s;
   }
 }
 
@@ -56,6 +117,11 @@ textarea {
 }
 :-ms-input-placeholder {
   font-family: "CalibriLight";
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
 }
 
 @font-face {
@@ -110,7 +176,6 @@ textarea {
     align-items: center;
     height: 40px;
     width: 20vw;
-    padding-left: 5px;
     input {
       background-color: whitesmoke;
       border: none;
@@ -220,8 +285,10 @@ textarea {
   gap: 10px;
   align-items: center;
   margin-top: 60px;
+  background-color: white;
   box-shadow: -2px 2px 4px rgb(218, 217, 217);
-  z-index: 100;
+  z-index: 10;
+
   .icon {
     color: transparent;
     border-radius: 10px 10px 0 0;
@@ -250,8 +317,8 @@ textarea {
   flex-direction: row;
 
   .image {
-    margin-top: 80px;
     flex: 35%;
+    align-self: flex-end;
     img {
       width: 35vw;
     }
@@ -263,20 +330,18 @@ textarea {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    gap: 50px;
+    gap: 40px;
 
     .message-container {
-      height: 80vh;
+      height: 86vh;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       text-align: center;
-      gap: 50px;
-      padding-bottom: 50px;
+      gap: 40px;
       .m1 {
         font-family: "Franklin";
         font-size: 42px;
-        margin-top: 50px;
       }
       .m2 {
         font-family: "CalibriLight";
@@ -505,6 +570,12 @@ textarea {
 .user {
   display: flex;
   flex-direction: column;
+  .settings {
+    position: absolute;
+    top: 72px;
+    right: 12px;
+    z-index: 2;
+  }
   .profil {
     margin-top: 80px;
     display: flex;
@@ -550,10 +621,16 @@ textarea {
   }
 
   @media (max-width: 800px) {
+    .settings {
+      display: flex;
+      align-self: flex-end;
+      position: relative;
+      margin-top: -10px;
+    }
     .profil {
       flex-direction: column;
       display: flex;
-      margin-top: 20px;
+      margin-top: 0px;
       .post {
         display: none;
       }
@@ -582,16 +659,6 @@ textarea {
   }
 }
 
-.settings {
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  color: transparent;
-  stroke: grey;
-  stroke-width: 1px;
-  z-index: 1;
-}
-
 //thread
 
 .thread {
@@ -612,7 +679,7 @@ textarea {
 //card
 .card-background {
   border-radius: 10px;
-  background-color: "white";
+  background-color: white;
   display: flex;
   flex-direction: column-reverse;
   width: 60%;
@@ -651,7 +718,7 @@ textarea {
     display: flex;
     align-self: center;
     flex-direction: column;
-    border: solid black 1px;
+    border: solid grey 1px;
     border-radius: 35px;
     margin: 10px;
     height: 460px;
@@ -669,7 +736,6 @@ textarea {
       display: flex;
       flex-direction: column;
       overflow: auto;
-      border-radius: 35px;
 
       .card-pic {
         align-self: flex-end;
@@ -688,7 +754,7 @@ textarea {
         font-size: 12px;
         width: 90%;
         padding: 1px 10px;
-        margin-bottom: 70px;
+        margin-bottom: 10px;
 
         p {
           max-width: 75%;
@@ -732,7 +798,7 @@ textarea {
 //post
 
 .footer {
-  border: solid black 1px;
+  border: solid grey 1px;
   border-radius: 30px;
   height: auto;
   width: 90%;
@@ -745,13 +811,14 @@ textarea {
   padding: 5px;
   z-index: 5;
   background-color: white;
+  align-items: flex-end;
 
   textarea {
     border: none;
     border-radius: 30px;
     font-family: "CalibriLight";
-    vertical-align: middle;
-    padding: 2px 20px;
+    align-self: flex-end;
+    padding: 2px 5px;
     font-size: 13px;
     text-align: center;
     border-radius: 20px;
@@ -759,18 +826,17 @@ textarea {
     min-height: 30px;
     width: 80%;
   }
-
-  .send {
-    background-color: white;
-    border-radius: 20px;
-    cursor: pointer;
-    border: none;
-    align-self: flex-end;
+  textarea::-webkit-scrollbar {
+    display: none;
+  }
+  textarea {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
 
 .post-container {
-  border: solid black 1px;
+  border: solid grey 1px;
   border-radius: 30px;
   margin: 10px auto;
   height: 460px;
@@ -917,10 +983,13 @@ textarea {
           background-color: rgb(218, 217, 217);
           width: 60%;
           text-align: center;
+          transition: 0.5s;
         }
-        .radio-input:checked + label {
+        .radio-input:checked + label,
+        .radio-input:hover + label {
           background-color: rgb(255, 153, 153);
           color: white;
+          transition: 0.5s;
         }
       }
     }
@@ -937,7 +1006,14 @@ textarea {
         font-family: "SanFrancisco";
         width: 60%;
         align-self: center;
+        transition: 0.5s;
       }
+      button:hover {
+        box-shadow: -2px 2px 4px rgb(218, 217, 217);
+        transform: scale(1.05);
+        transition: 0.5s;
+      }
+
       width: 80%;
       display: flex;
       flex-direction: column;
@@ -950,21 +1026,11 @@ textarea {
     position: relative;
     button {
       cursor: pointer;
-      border: solid black 1px;
-      background-color: white;
-      font-family: "Calibri";
-      border-radius: 20px;
-      padding: 10px 50px;
-      margin: 10px auto;
-      display: inline-flex;
       align-items: center;
       position: absolute;
       bottom: 50%;
       left: 50%;
       transform: translate(-50%);
-      p {
-        padding-right: 20px;
-      }
     }
     img {
       transform: rotate(-90deg);

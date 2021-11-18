@@ -1,3 +1,4 @@
+import { IconButton } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../actions/auth.actions";
@@ -10,13 +11,9 @@ const Logout = () => {
   };
 
   return (
-    <img
-      src="../img/logout.svg"
-      alt="login"
-      height="30px"
-      color="grey"
-      onClick={(e) => logout(e)}
-    />
+    <IconButton onClick={(e) => logout(e)}>
+      <img src="../img/logout.svg" alt="login" height="30px" color="grey" />
+    </IconButton>
   );
 };
 

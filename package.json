@@ -37,6 +37,7 @@
     "passport-jwt": "^4.0.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.1",
+    "react-shimmer-effects": "^1.0.2",
     "react-textarea-autosize": "^8.3.3",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",

@@ -7,6 +7,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
 import Logout from "./Log/Logout";
+import { IconButton } from "@mui/material";
 
 const Navbar = () => {
   const uid = useSelector((state) => state.authReducer.user);
@@ -28,7 +29,10 @@ const Navbar = () => {
         </div>
 
         <div className="search">
-          <SearchIcon onClick={() => window.find(findMessage)} />
+          <IconButton onClick={() => window.find(findMessage)}>
+            <SearchIcon />
+          </IconButton>
+
           <input
             placeholder="search in LightMeUp"
             type="text"
@@ -74,7 +78,9 @@ const Navbar = () => {
                 <Logout />
               ) : (
                 <NavLink exact to="/user">
-                  <img src="../img/login.svg" alt="login" height="30px" />
+                  <IconButton>
+                    <img src="../img/login.svg" alt="login" height="30px" />
+                  </IconButton>
                 </NavLink>
               )}
             </div>

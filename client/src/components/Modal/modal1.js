@@ -127,17 +127,26 @@ const Modal = ({ isShowing, hide }) => {
           font-family: "CalibriLight";
           justify-content: space-evenly;
           align-items: center;
+          margin-bottom: 30px;
+          transition: 0.5s;
         }
         .active-list {
           background-color: rgb(255, 153, 153);
           color: white;
           padding: 10px;
           border-radius: 10px;
+          width: 180px;
+          text-align: center;
+          transition: 0.5s;
+          border: none;
         }
         .unactive {
           padding: 10px;
           border-radius: 10px;
           border: 1px solid grey;
+          width: 180px;
+          text-align: center;
+          transition: 0.5s;
         }
 
         .row {
@@ -170,6 +179,7 @@ const Modal = ({ isShowing, hide }) => {
           max-width: 500px;
           width: 60%;
           padding: 1rem;
+          height: 50%;
         }
 
         .modal-close-button {

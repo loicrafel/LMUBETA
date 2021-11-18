@@ -3,8 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { addPost, getPost } from "../actions/post.actions";
-
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import { styled } from "@mui/material/styles";
 import TextareaAutosize from "react-textarea-autosize";
+import SendIcon from "@mui/icons-material/Send";
+
+const Input = styled("input")({
+  display: "none",
+});
 
 const NewProfile = () => {
   const uid = useSelector((state) => state.authReducer.user);
@@ -77,17 +84,22 @@ const NewProfile = () => {
           <div className="icon">
             <div className="error">{error}</div>
             <div>
-              <img src="./img/picture.svg" alt="upload-img" />
-              <input
-                type="file"
-                id="file-upload"
-                name="file"
-                accept=".jpg, .jpeg, .png"
-                onChange={(e) => handlePicture(e)}
-              />
+              <label htmlFor="icon-button-file">
+                <Input
+                  accept="image/*"
+                  id="icon-button-file"
+                  type="file"
+                  onChange={(e) => handlePicture(e)}
+                />
+                <IconButton
+                  style={{ color: "grey" }}
+                  aria-label="upload picture"
+                  component="span"
+                >
+                  <PhotoCamera fontSize="large" />
+                </IconButton>
+              </label>
             </div>
-
-            <p>Upload une capture d'écran</p>
           </div>
         )}
         <div className="footer">
@@ -95,16 +107,20 @@ const NewProfile = () => {
             maxRows={5}
             onChange={(e) => setMessage(e.target.value)}
             value={message}
-            placeholder="Et explique ta situation en quelques mots et ce que pourrait t'apporter la communauté..."
+            placeholder="Explique en quelques mots ce que pourrait t'apporter la communauté..."
           />
           {message && postPicture ? (
-            <button className="send" onClick={handlePost}>
-              <img src="./img/send.svg" alt="envoyer" height="30px" />
-            </button>
+            <IconButton aria-label="delete" onClick={handlePost}>
+              <SendIcon />
+            </IconButton>
           ) : (
-            <button className="send">
+            <div>
               <Popup
-                trigger={<img src="./img/send.svg" alt="send" height="30px" />}
+                trigger={
+                  <IconButton aria-label="delete">
+                    <SendIcon />
+                  </IconButton>
+                }
                 position={["bottom center", "bottom right", "bottom left"]}
                 closeOnDocumentClick
               >
@@ -112,7 +128,7 @@ const NewProfile = () => {
                   Veuillez entrer un message et une photo!
                 </div>
               </Popup>
-            </button>
+            </div>
           )}
         </div>
       </div>

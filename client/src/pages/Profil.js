@@ -10,6 +10,7 @@ import { getPost } from "../actions/post.actions";
 import SettingsIcon from "@mui/icons-material/Settings";
 import useModal from "../components/Modal/useModal";
 import Modal2 from "../components/Modal/modal2";
+import { IconButton } from "@mui/material";
 
 const Profil = () => {
   const uid = useSelector((state) => state.authReducer.user);
@@ -28,9 +29,10 @@ const Profil = () => {
         {uid.id ? (
           <div className="user">
             <Modal2 isShowing={isShowing} hide={toggle} />
-
             <div className="settings">
-              <SettingsIcon fontSize="large" onClick={toggle} />
+              <IconButton onClick={toggle}>
+                <SettingsIcon fontSize="large" />
+              </IconButton>
             </div>
 
             <div className="profil">
@@ -42,10 +44,9 @@ const Profil = () => {
                 <div className="message">
                   <div className="m1">
                     <p>
-                      Bienvenue {uid?.pseudo}. Dans ton espace, tu peux
-                      soumettre une nouvelle demande, consulter les conseils
-                      donnés par les autres utilisateurs et voir si tes conseils
-                      sont appréciés.
+                      Bienvenue {uid?.pseudo}. Dans ton espace, tu peux poster
+                      une nouvelle demande et consulter les réponses des autres
+                      utilisateurs.
                     </p>
                   </div>
 
@@ -59,11 +60,20 @@ const Profil = () => {
                   </div>
 
                   <div>
-                    <img
-                      src="../img/arrow.svg"
-                      alt="flèche vers le bas"
-                      height="40px"
-                    />
+                    <IconButton
+                      onClick={() =>
+                        window.scrollTo({
+                          top: window.innerHeight * 0.9,
+                          behavior: "smooth",
+                        })
+                      }
+                    >
+                      <img
+                        src="../img/arrow.svg"
+                        alt="flèche vers le bas"
+                        height="40px"
+                      />
+                    </IconButton>
                   </div>
                 </div>
                 <div className="post2">

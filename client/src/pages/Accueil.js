@@ -21,22 +21,20 @@ const Accueil = () => {
           <div className="message-container">
             <div className="m1">
               <p>
-                Besoin de conseils... <br />
+                Besoin d'un coach Love... <br />
                 Light Me Up !
               </p>
             </div>
             <div className="m2">
               <p>
-                LightMeUp est le premier site d'entraide pour la séduction en
-                ligne. Grâce à la force de sa communauté, Light Me Up permet à
-                ses utilisateurs de recevoir des conseils gratuitement et
-                anonymement. Besoin d'une idée de réponse, d'une phrase
-                d'accroche, ou d'une explication? L'intelligence collective est
-                à votre service.
+                Grâce à la force de sa communauté, Light Me Up est la meilleure
+                arme pour dompter les applications de rencontre, en permettant à
+                ses utilisateurs de bénéficier d'un coaching Love gratuit et
+                anonyme. L'intelligence collective est à votre service.
               </p>
               <div className="center">
                 <div className="row">
-                  <p className="number" onClick={toggle}>
+                  <p className="number click" onClick={toggle}>
                     ?
                   </p>
                   <p>Comment utiliser LightMeUp ?</p>
@@ -45,17 +43,20 @@ const Accueil = () => {
             </div>
 
             <div className="m3">
-              <div>
-                <NavLink className="button-signup" exact to="game">
+              <div className="click">
+                <NavLink className="button-signup " exact to="game">
                   Help
                 </NavLink>
               </div>
               <p> or </p>
               <div>
-                <NavLink className="button-signup" exact to="user">
-                  Get Helped
-                </NavLink>
-                <div className="souligne">
+                <div className="click">
+                  <NavLink className="button-signup " exact to="user">
+                    Get Helped
+                  </NavLink>
+                </div>
+
+                <div className="souligne click">
                   <NavLink className="souligne" exact to="user">
                     Connect
                   </NavLink>
